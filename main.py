@@ -14,7 +14,11 @@ class AgentState(TypedDict):
     summary: str
 
 # 2. Initialize Cloud LLM 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3)
+# OLD CODE:
+# llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3)
+
+# NEW CODE: Update to the current version
+llm = ChatGoogleGenerativeAI(model="gemini-3.6-flash", temperature=0.3)
 
 # 3. Node A: Code-driven NewsAPI MCP Tool Simulation
 def fetch_news_node(state: AgentState):
