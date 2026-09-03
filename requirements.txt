@@ -1,3 +1,4 @@
+requests
 langgraph
 langchain-google-genai
 langchain-community
