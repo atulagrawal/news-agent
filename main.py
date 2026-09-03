@@ -19,17 +19,17 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3)
 # 3. Node A: Code-driven NewsAPI MCP Tool Simulation
 def fetch_news_node(state: AgentState):
     topic = state["topic"]
-    
-    # Read the token from Render's cloud environment variables
     api_key = os.environ.get("NEWSAPI_KEY")
     
-    # NewsAPI REST Endpoint mimicking the MCP 'searchArticles' schema
-    url = f"https://newsapi.org{topic}&sortBy=publishedAt&pageSize=5&apiKey={api_key}"
+    # 1. ADD THIS LINE: Explicitly define a real browser identity header
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     
-    response = requests.get(url).json()
+    url = f"https://newsapi.org/v2/everything?q={topic}&sortBy=publishedAt&pageSize=5&apiKey={api_key}"
+    
+    # 2. UPDATE THIS LINE: Pass the headers variable into the request
+    response = requests.get(url, headers=headers).json()
     articles = response.get("articles", [])
     
-    # Process structured fields cleanly into a state string
     formatted_text = ""
     for art in articles:
         title = art.get("title", "No Title")
